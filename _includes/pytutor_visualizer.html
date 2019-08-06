@@ -1,0 +1,59 @@
+{% comment %}
+  Version 2019-08-06
+    https://github.com/kevinlin1/jekyll-python-tutor
+
+  Liquid template for generating Python Tutor embeds.
+
+  Usage:
+    {%- capture HelloWorld -%}
+    print('Hello, world!')
+    {%- endcapture -%}
+    {% include pytutor_visualizer.html py="3" code=HelloWorld caption="Hello, world!" %}
+
+  Advanced usage:
+    {%- capture HelloWorld -%}
+    print('Hello, world!')
+    {%- endcapture -%}
+    {% include pytutor_visualizer.html py="3" mode='display' code=HelloWorld
+        caption="Hello, world!" label="Visualize Code" class="btn" curInstr="0"
+        cumulative="false" heapPrimitives="nevernest" textReferences="false" %}
+{% endcomment %}
+
+{% assign py = include.py | default: '3' %}
+{% assign mode = include.mode | default: 'display' %}
+{% assign code = include.code | default: '' %}
+{% assign caption = include.caption | default: '' %}
+{% assign label = include.label | default: 'Visualize Code' %}
+{% assign class = include.class | default: 'btn' %}
+{% assign curInstr = include.curInstr | default: 0 %}
+{% assign cumulative = include.cumulative | default: 'false' %}
+{% assign heapPrimitives = include.heapPrimitives | default: 'nevernest' %}
+{% assign textReferences = include.textReferences | default: 'false' %}
+
+{% if py == '2' or py == '3' or py == 'py3anaconda' %}
+  {% assign language = 'python' %}
+{% else %}
+  {% assign language = py %}
+{% endif %}
+
+{% capture codeBlock %}
+```{{ language }}
+{{ code }}
+```
+{% endcapture %}
+{% assign codeBlock = codeBlock | markdownify %}
+
+{% if label %}
+<figure>
+  {{ codeBlock }}
+  <figcaption>
+    {{ caption }}
+    <a class="{{ class }}" target="_blank" href="http://www.pythontutor.com/visualize.html#code={{ code | url_encode }}&cumulative={{ cumulative }}&curInstr={{ curInstr }}&heapPrimitives={{ heapPrimitives }}&mode={{ mode }}&py={{ py }}&textReferences={{ textReferences }}">
+      {{ label }}
+    </a>
+  </figcaption>
+</figure>
+{% else %}
+{{ codeBlock }}
+{% endif %}
+
