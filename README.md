@@ -1,4 +1,4 @@
-# Embed Python Tutor Visualizations in Jekyll
+# Jekyll Python Tutor
 
 Automatically embed [Python Tutor][] visualization buttons alongside your code
 listings.
