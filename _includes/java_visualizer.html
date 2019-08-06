@@ -22,10 +22,13 @@
         }
     }
     {%- endcapture -%}
-    {% include java_visualizer.html code=HelloWorld caption="Hello, world!"
-        label="Visualize Code" curInstr="0" args='["arg1", ...]' stdin="stdin" %}
+    {% include java_visualizer.html mode="display" code=HelloWorld
+        caption="Hello, world!" label="Visualize Code" class="btn" curInstr="0"
+        args='["arg1", ...]' stdin="stdin" showStringsAsObjects=""
+        showAllFields="" disableNesting="" verticalLists="" %}
 {% endcomment %}
 
+{% assign mode = include.mode | default: 'display' %}
 {% assign code = include.code | default: '' %}
 {% assign caption = include.caption | default: '' %}
 {% assign label = include.label | default: 'Visualize Code' %}
@@ -33,6 +36,10 @@
 {% assign curInstr = include.curInstr | default: 0 %}
 {% assign args = include.args | default: '[]' %}
 {% assign stdin = include.stdin | default: '' %}
+{% assign showStringsAsObjects = include.showStringsAsObjects | default: '' %}
+{% assign showAllFields = include.showAllFields | default: '' %}
+{% assign disableNesting = include.disableNesting | default: '' %}
+{% assign verticalLists = include.verticalLists | default: '' %}
 
 {% capture codeBlock %}
 ```java
@@ -46,7 +53,7 @@
   {{ codeBlock }}
   <figcaption>
     {{ caption }}
-    <a class="{{ class }}" target="_blank" href="https://cscircles.cemc.uwaterloo.ca/java_visualize/#code={{ code | url_encode }}&mode=edit&showStringsAsObjects=&disableNesting=&args={{ args | url_encode }}&stdin={{ stdin | url_encode }}&curInstr={{ curInstr }}">
+    <a class="{{ class }}" target="_blank" href="https://cscircles.cemc.uwaterloo.ca/java_visualize/#code={{ code | url_encode }}&mode={{ mode }}&showStringsAsObjects={{ showSringsAsObjects }}&showAllFields={{ showAllFields }}&disableNesting={{ disableNesting }}&verticalLists={{ verticalLists }}&args={{ args | url_encode }}&stdin={{ stdin | url_encode }}&curInstr={{ curInstr }}">
       {{ label }}
     </a>
   </figcaption>
