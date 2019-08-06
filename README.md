@@ -17,8 +17,18 @@ Download the appropriate visualization embed from [`_includes`](/_includes)
 into your Jekyll website's `_includes` folder. Then, follow the usage
 instructions in the file.
 
-As an example, here's a sample for embedding the
-[`java_visualizer.html`](/_includes/java_visualizer.html).
+### [`pytutor_visualizer.html`](/_includes/pytutor_visualizer.html)
+
+    {%- capture HelloWorld -%}
+    print('Hello, world!')
+    {%- endcapture -%}
+    {% include pytutor_visualizer.html py="3" code=HelloWorld caption="Hello, world!" %}
+
+The full list of `py` [backend language flags][] can be found in Philip's repo.
+
+[backend language flags]: https://github.com/pgbovine/OnlinePythonTutor/blob/80ac1ac1b832e94d279d76af7c40bb0e3944d768/v5-unity/visualize.html#L48-L56
+
+### [`java_visualizer.html`](/_includes/java_visualizer.html)
 
     {%- capture HelloWorld -%}
     public class HelloWorld {
